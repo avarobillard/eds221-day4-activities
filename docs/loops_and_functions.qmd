@@ -69,7 +69,9 @@ fish_weight("Milkfish", 10)
 
 Task 4
 ```{r}
-
+wave_power <- function(H, T){
+  
+}
 ```
 
 Task 5
