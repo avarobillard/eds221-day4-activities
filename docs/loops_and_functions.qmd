@@ -1,0 +1,79 @@
+---
+title: "Loops and Functions"
+format: html
+---
+## For loops
+Task 1
+```{r}
+# create sequences
+weekdays <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
+
+transects <- c("Transect A", "Transect B", "Transect C")
+
+# create nested loop to output a matrix
+
+# output matrix
+out_matrix <- matrix(nrow = length(weekdays), ncol = length(transects))
+
+# does each week day, fills along row by transect 
+for (i in seq_along(weekdays)){
+  for (j in seq_along(transects)){
+    day_transect <- paste(weekdays[i], "-", transects[j])
+    out_matrix[i,j] <- day_transect
+  }
+}
+```
+
+## Functions
+Task 2
+```{r}
+# create function
+force <- function(mass, acceleration){
+  calculated_force <- (mass*acceleration)
+  print(paste("The resulting force is", calculated_force, "Newtons"))
+}
+
+# use function
+force(10, 10)
+```
+
+Task 3
+```{r}
+sci_name <- c("Chanos chanos", "Sphyraena barracuda", "Carnax ignobilis")
+common_name <- c("Milkfish", "Great barracuda", "Giant trevally")
+a_est <- c(0.095, 0.0181, 0.0353)
+b_est <- c(2.52, 3.27, 3.05)
+
+# create a data frame from sequences 
+fish_parms <- data.frame(sci_name, common_name, a_est, b_est)
+
+# write function
+fish_weight <- function(fish_name, tot_length){
+  for (i in length(fish_parms$common_name)){
+    if (fish_parms$common_name[i] == fish_name){
+      a <- fish_parms$a_est[i] 
+      b <- fish_parms$b_est[i]
+      L <- tot_length
+      weight <- (a * (L ^ b))
+    #find where common name is common_name, use to find correlated a_est and b_est, tot_length
+      print(weight)  
+    }
+  }
+}
+
+# use function
+fish_weight("Milkfish", 10)
+#print(weight)
+
+```
+
+Task 4
+```{r}
+
+```
+
+Task 5
+```{r}
+
+```
+
