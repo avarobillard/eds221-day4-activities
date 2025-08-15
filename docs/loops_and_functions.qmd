@@ -47,35 +47,50 @@ b_est <- c(2.52, 3.27, 3.05)
 # create a data frame from sequences 
 fish_parms <- data.frame(sci_name, common_name, a_est, b_est)
 
-# write function
-fish_weight <- function(fish_name, tot_length){
-  for (i in length(fish_parms$common_name)){
-    if (fish_parms$common_name[i] == fish_name){
-      a <- fish_parms$a_est[i] 
-      b <- fish_parms$b_est[i]
-      L <- tot_length
-      weight <- (a * (L ^ b))
-    #find where common name is common_name, use to find correlated a_est and b_est, tot_length
-      print(weight)  
-    }
-  }
+# write function- uses filter- keep rows that match condition 
+fish_weight <- function(fish_name, tot_length){ 
+  fish_subset <- fish_parms |> # creating subset from original df
+    dplyr::filter(common_name == fish_name)
+  weight <- fish_subset$a_est * (tot_length ^ fish_subset$b_est)
+  return(weight)
 }
 
 # use function
-fish_weight("Milkfish", 10)
-#print(weight)
+fish_weight(fish_name = "Milkfish", tot_length = 57)
+
+# create vector
+lengths <- seq(from = 0, to = 100, by = 1)
+
+milkfish_weights <- fish_weight("Milkfish", lengths)
 
 ```
 
 Task 4
 ```{r}
 wave_power <- function(H, T){
-  
+  power <- 0.5 * H^2 * T
+  return(power)
 }
+
+wave_heights <- seq(from = 0, to = 3, by = 0.2)
+wave_power(wave_heights, 8)
 ```
 
 Task 5
 ```{r}
+wave_power <- function(D, H, T){
+  if (D > 12){
+    message("The deep water equation was used")
+    power <- 0.5 * H^2 * T
+    return(power)
+  } else if (D <= 12){
+    message("The shallow water equation was used")
+    power <- 0.81 * H^2 * T
+    return(power)
+  }
+}
 
+wave_heights <- seq(from = 0, to = 3, by = 0.2)
+wave_power(10, wave_heights, 8)
 ```
 
